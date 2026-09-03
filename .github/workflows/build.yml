@@ -36,8 +36,13 @@ jobs:
     
     - name: Build Android APK
       run: |
-        npx expo export --platform android
+        # Generate the JavaScript bundle first
+        npx expo export --platform android --output-dir dist
+        
+        # Prebuild the Android project
         npx expo prebuild --platform android
+        
+        # Build the APK
         cd android
         chmod +x gradlew
         ./gradlew assembleDebug
